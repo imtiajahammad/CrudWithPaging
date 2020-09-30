@@ -1,0 +1,80 @@
+﻿@*@model IEnumerable<CrudWithPaging.Models.Employee>*@
+@using PagedList.Mvc
+@model  PagedList.IPagedList<CrudWithPaging.Models.Employee>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.firstName)*@
+            @Html.Label("firstName");
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.lastName)*@
+            @Html.Label("lastName");
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.age)*@
+            @Html.Label("age");
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.salary)*@
+            @Html.Label("salary");
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.taxRate)*@
+            @Html.Label("taxRate");
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.dob)*@
+            @Html.Label("dob");
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.firstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.age)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.salary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.taxRate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dob)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>
+
+
+<div id="container" style="margin-left: 20px">
+    <div class="pagination" style="margin-left: 400px;text-align: center;">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        of @Model.PageCount   @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    </div>
+</div>
